@@ -1,0 +1,71 @@
+import React from 'react';
+import { createBrowserRouter } from "react-router";
+import RootLayout from '../Layout/RootLayout';
+import Home from '../Pages/Home/Home/Home';
+import Login from '../Pages/Auth/Login/Login';
+import Resgister from '../Pages/Auth/Resgister/Resgister';
+import DashbordLayout from '../Layout/DashbordLayout';
+import AddPost from '../Pages/Dasbord/User/AddPost/AddPost';
+import UserHome from '../Pages/Dasbord/User/UserHome/UserHome';
+import MyPosts from '../Pages/Dasbord/User/MyPosts/MyPosts';
+import ManageUsers from '../Pages/Dasbord/Admin/ManageUsers/ManageUsers';
+import AddTags from '../Pages/Dasbord/Admin/AddTags/AddTags';
+import Announcement from '../Pages/Dasbord/Admin/Announcement/Announcement';
+import Comments from '../Pages/Dasbord/User/Comments/Comments';
+
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        Component: RootLayout,
+        children: [
+            { index: true, Component: Home },
+        ]
+    },
+    {
+        path: "/dashboard",
+        element: <DashbordLayout></DashbordLayout>,
+        children: [
+            { 
+                index: true, 
+                Component : UserHome
+            },
+            {
+                path: 'add-post',
+                Component: AddPost
+            },
+            {
+                path: 'add-tags',
+                Component: AddTags
+            },
+            {
+                path: 'user',
+                Component: ManageUsers
+            },
+            {
+                path: 'my-posts',
+                Component: MyPosts
+            },
+            {
+                path: 'announcement',
+                Component: Announcement
+            },
+            {
+                path: 'comments',
+                Component: Comments
+            },
+        ]
+        
+    },
+    {
+        path: "login",
+        Component: Login
+    },
+    {
+        path: "signup",
+        Component: Resgister
+    }
+
+]);
+
+export default router;
