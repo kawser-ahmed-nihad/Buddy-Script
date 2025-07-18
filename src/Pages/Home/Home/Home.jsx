@@ -4,14 +4,15 @@ import AllTags from '../AllTags/AllTags';
 import PostList from '../PostList/PostList';
 
 const Home = () => {
-    const [selectedTag, setSelectedTag] = useState(null);
-    return (
-        <div>
-            <Hero></Hero>
-            <AllTags selectedTag={selectedTag} setSelectedTag={setSelectedTag}></AllTags>
-            <PostList selectedTag={selectedTag} ></PostList>
-        </div>
-    );
+  const [selectedTag, setSelectedTag] = useState(null);
+
+  return (
+    <div className="">
+      <Hero />
+      <AllTags selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
+      <PostList selectedTag={selectedTag} />
+    </div>
+  );
 };
 
 export default Home;

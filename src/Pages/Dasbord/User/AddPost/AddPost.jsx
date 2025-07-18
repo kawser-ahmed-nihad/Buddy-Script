@@ -1,9 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
+import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import Select from 'react-select';
+import { useQuery } from '@tanstack/react-query';
 
-const AddPost = ({ user = {}, userPosts = [] }) => {
-  const [isLimitExceeded, setIsLimitExceeded] = useState(false);
+import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
+import useAuth from '../../../../hooks/useAuth';
+
+const useTags = () => {
+  const axiosSecure = useAxiosSecure();
+
+  return useQuery({
+    queryKey: ['tags'],
+    queryFn: async () => {
+      const res = await axiosSecure.get('/api/tags');
+
+      return res.data.map(tag => ({
+        value: tag.tagName,
+        label: tag.tagName.charAt(0).toUpperCase() + tag.tagName.slice(1),
+      }));
+    },
+  });
+};
+
+const AddPost = ({ userPosts = [] }) => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  // console.log("User:", user);
+
   const {
     register,
     handleSubmit,
@@ -12,111 +36,127 @@ const AddPost = ({ user = {}, userPosts = [] }) => {
     formState: { errors },
   } = useForm();
 
-  const tagOptions = [
-    { value: 'Technology', label: 'Technology' },
-    { value: 'Education', label: 'Education' },
-    { value: 'Health', label: 'Health' },
-    { value: 'Entertainment', label: 'Entertainment' },
-  ];
+  const { data: tagOptions = [], isLoading } = useTags();
 
-  useEffect(() => {
-    if (userPosts.length >= 5) {
-      setIsLimitExceeded(true);
-    }
-  }, [userPosts]);
+  const isBronze = user?.status === 'bronze';
+  const postLimitReached = isBronze && userPosts.length >= 5;
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const postData = {
-      ...data,
+      authorImg: user.photoURL,
+      authorName: user.displayName,
+      authorEmail: user.email,
+      title: data.title,
+      description: data.description,
       tag: data.tag?.value || '',
       upVote: 0,
       downVote: 0,
+      createdAt: new Date().toISOString(),
     };
-    console.log('Submitted Data:', postData);
 
-    // এখানে API call বা Firebase এ data পাঠাও
-    reset();
+    try {
+      const res = await axiosSecure.post('/api/posts', postData);
+      if (res.data.insertedId) {
+        Swal.fire('Success', 'Post added successfully', 'success');
+        reset();
+      }
+    } catch (error) {
+      console.error('Post submission failed:', error);
+      Swal.fire('Error', 'Something went wrong', 'error');
+    }
   };
 
-  if (isLimitExceeded) {
-    return (
-      <div className="text-center mt-10">
-        <p className="text-xl text-red-500 mb-4">You have reached your post limit (5).</p>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded">
-          Become a Member
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">Add New Post</h2>
+    <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg mt-10">
+      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white">
+        Add a New Post
+      </h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      {postLimitReached ? (
+        <div className="text-center">
+          <p className="text-red-500 font-medium">Bronze users can add up to 5 posts only.</p>
+          <button className="mt-4 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded">
+            Become a Gold Member
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
-        <input
-          type="text"
-          placeholder="Author Image URL"
-          {...register('authorImg', { required: true })}
-          className="w-full p-2 border rounded"
-        />
-        {errors.authorImg && <p className="text-red-500">Author image is required</p>}
 
-        <input
-          type="text"
-          placeholder="Author Name"
-          defaultValue={user?.name || ''}
-          {...register('authorName', { required: true })}
-          className="w-full p-2 border rounded"
-        />
-        {errors.authorName && <p className="text-red-500">Author name is required</p>}
-
-        <input
-          type="email"
-          placeholder="Author Email"
-          defaultValue={user?.email || ''}
-          {...register('authorEmail', { required: true })}
-          className="w-full p-2 border rounded"
-        />
-        {errors.authorEmail && <p className="text-red-500">Author email is required</p>}
-
-        <input
-          type="text"
-          placeholder="Post Title"
-          {...register('title', { required: true })}
-          className="w-full p-2 border rounded"
-        />
-        {errors.title && <p className="text-red-500">Title is required</p>}
-
-        <textarea
-          placeholder="Post Description"
-          {...register('description', { required: true })}
-          className="w-full p-2 border rounded"
-        />
-        {errors.description && <p className="text-red-500">Description is required</p>}
-
-        <Controller
-          name="tag"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <Select
-              {...field}
-              options={tagOptions}
-              placeholder="Select a Tag"
+          <div>
+            <label className="block text-gray-700 mb-1">Author Image</label>
+            <input
+              type="text"
+              value={user.photoURL || ''}
+              readOnly
+              className="w-full px-4 py-2 rounded border  text-black cursor-not-allowed"
             />
-          )}
-        />
-        {errors.tag && <p className="text-red-500">Tag is required</p>}
+          </div>
 
-        <button
-          type="submit"
-          className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
-        >
-          Submit Post
-        </button>
-      </form>
+
+          <div>
+            <label className="block text-black  mb-1">Author Name</label>
+            <input
+              type="text"
+              value={user.displayName || ''}
+              readOnly
+              className="w-full px-4 py-2 rounded border  cursor-not-allowed"
+            />
+          </div>
+
+
+          <div>
+            <label className="block text-black  mb-1">Author Email</label>
+            <input
+              type="email"
+              value={user.email || ''}
+              readOnly
+              className="w-full px-4 py-2 rounded border  cursor-not-allowed"
+            />
+          </div>
+
+
+          <input
+            type="text"
+            {...register('title', { required: true })}
+            placeholder="Post Title"
+            className="w-full px-4 py-2 rounded border dark:bg-gray-800 dark:text-white"
+          />
+          {errors.title && <p className="text-red-500">Title is required</p>}
+
+
+          <textarea
+            {...register('description', { required: true })}
+            placeholder="Post Description"
+            className="w-full px-4 py-2 rounded border dark:bg-gray-800 dark:text-white"
+            rows="4"
+          />
+          {errors.description && <p className="text-red-500">Description is required</p>}
+
+
+          <Controller
+            name="tag"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Select
+                {...field}
+                options={tagOptions}
+                placeholder="Select a Tag"
+                isLoading={isLoading}
+              />
+            )}
+          />
+          {errors.tag && <p className="text-red-500">Tag is required</p>}
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded"
+          >
+            Submit Post
+          </button>
+        </form>
+      )}
     </div>
   );
 };

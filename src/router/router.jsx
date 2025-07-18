@@ -13,6 +13,7 @@ import AddTags from '../Pages/Dasbord/Admin/AddTags/AddTags';
 import Announcement from '../Pages/Dasbord/Admin/Announcement/Announcement';
 import Comments from '../Pages/Dasbord/User/Comments/Comments';
 import PaymentPage from '../Pages/Membership/PaymentPage/PaymentPage';
+import PrivateRoute from '../context/PrivateRoute/PrivateRoute';
 
 
 const router = createBrowserRouter([
@@ -26,13 +27,13 @@ const router = createBrowserRouter([
             },
             {
                 path: "membership",
-                element : <PaymentPage></PaymentPage>
+                element :<PrivateRoute> <PaymentPage></PaymentPage></PrivateRoute>
             },
         ]
     },
     {
         path: "/dashboard",
-        element: <DashbordLayout></DashbordLayout>,
+        element: <PrivateRoute><DashbordLayout></DashbordLayout></PrivateRoute>,
         children: [
             {
                 index: true,
