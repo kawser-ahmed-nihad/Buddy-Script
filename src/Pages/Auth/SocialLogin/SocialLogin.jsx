@@ -2,14 +2,26 @@ import React from 'react';
 import Swal from 'sweetalert2';
 import useAuth from '../../../hooks/useAuth';
 import { Link, useLocation, useNavigate } from 'react-router';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 const SocialLogin = () => {
     const { socialLogin } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const axiosSecure = useAxiosSecure();
     const googleLogin = () => {
         socialLogin()
             .then(res => {
-                console.log(res.user);
+                const userInfo = {
+                    name: res.user.displayName || "No Name",
+                    email: res.user.email,
+                    photo: res.user.photoURL || '',
+                    role: "user",        
+                    status: "bronze"     
+                };
+
+                // Send to backend
+                axiosSecure.post("/api/users", userInfo)
+
                 Swal.fire({
                     icon: 'success',
                     title: 'Login Successful!',
@@ -19,14 +31,6 @@ const SocialLogin = () => {
                 });
                 navigate(location.state?.from || "/");
             })
-            .catch(err => {
-                console.error(err);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Login Failed!',
-                    text: err.message || 'Something went wrong!',
-                });
-            });
     };
 
     return (

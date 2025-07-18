@@ -12,14 +12,14 @@ const DashbordNav = () => {
         { name: 'Add Tags', icon: <FiTag />, path: '/dashboard/add-tags' },
         { name: 'Add Post', icon: <FiEdit />, path: '/dashboard/add-post' },
         { name: 'My Posts', icon: <FiUser />, path: '/dashboard/my-posts' },
-        { name: 'Manage Users', icon: <FiUsers />, path: '/dashboard/users' },
+        { name: 'Manage Users', icon: <FiUsers />, path: '/dashboard/user' },
         { name: 'Make Announcement', icon: <FiSpeaker />, path: '/dashboard/announcement' },
         { name: 'Comments Page', icon: <FiMessageCircle />, path: '/dashboard/comments' },
     ];
 
     return (
         <>
-            {/* মোবাইল টপ বার */}
+       
             <div className="md:hidden flex justify-between items-center px-4 py-3 shadow-sm bg-white">
                 <NavLink to="/" className="text-lg font-bold text-purple-700">EchoVerse</NavLink>
                 <button
@@ -30,7 +30,7 @@ const DashbordNav = () => {
                 </button>
             </div>
 
-            {/* মোবাইল ওভারলে */}
+          
             {isOpen && (
                 <div
                     className="fixed inset-0 z-40"
@@ -38,18 +38,18 @@ const DashbordNav = () => {
                 ></div>
             )}
 
-            {/* সাইডবার */}
+        
             <div
                 className={`bg-white shadow-sm p-4 w-60 h-screen fixed  left-0 z-50 transition-transform duration-300 
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
                  md:translate-x-0 md:relative md:h-screen`}
             >
-                {/* ডেস্কটপ লোগো */}
+             
                 <div className="mb-6 py-5 hidden md:block text-center">
                     <NavLink to="/" className="text-lg font-bold text-purple-700">EchoVerse</NavLink>
                 </div>
 
-                {/* মেনু আইটেম */}
+         
                 <div>
                     <p className="text-sm text-gray-500 mb-3">Menu</p>
                     <ul className="space-y-2">

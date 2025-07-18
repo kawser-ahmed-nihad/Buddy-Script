@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { NavLink } from 'react-router';
 import { FiBell, FiMenu, FiX, FiMoon, FiSun } from 'react-icons/fi';
 import useAuth from '../../../hooks/useAuth';
+import Swal from 'sweetalert2';
 const Navbar = () => {
     const { user, logOut, loading } = useAuth();
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -18,10 +19,22 @@ const Navbar = () => {
         return () => document.removeEventListener('mousedown', closeDropdown);
     }, []);
 
-    const handleLogout = () => {
-        logOut();
-        setDropdownOpen(false);
-        setMobileOpen(false);
+    const handleLogOut = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will be logged out!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, log out!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                logOut();
+                Swal.fire("Logged out!", "", "success");
+               
+            }
+        });
     };
 
     if (loading) {
@@ -72,7 +85,7 @@ const Navbar = () => {
                                     <p className="font-semibold text-sm">{user.displayName}</p>
                                     <NavLink to="/dashboard" className="block text-sm hover:text-[#303F9F]">Dashboard</NavLink>
                                     <button
-                                        onClick={handleLogout}
+                                        onClick={handleLogOut}
                                         className="text-red-600 text-left text-sm"
                                     >
                                         Logout
@@ -133,7 +146,7 @@ const Navbar = () => {
                     ) : (
                         <>
 
-                            <button onClick={handleLogout} className="text-red-300 text-left hover:underline">Logout</button>
+                            <button onClick={handleLogOut} className="text-red-300 text-left hover:underline">Logout</button>
                         </>
                     )}
                 </ul>

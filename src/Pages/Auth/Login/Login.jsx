@@ -6,6 +6,7 @@ import useAuth from '../../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Login = () => {
     const [loginError, setLoginError] = useState('');
@@ -14,6 +15,7 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+    const axiosSecure = useAxiosSecure();
 
     const onSubmit = (data) => {
         setLoginError("");
@@ -26,7 +28,16 @@ const Login = () => {
                     Swal.fire("Login Failed", "Please verify your email before login.", "warning");
                     return;
                 }
+                const userInfo = {
+                    name: res.user.displayName || "No Name",
+                    email: res.user.email,
+                    photo: res.user.photoURL || '',
+                    role: "user",        
+                    status: "bronze"     
+                };
 
+                // Send to backend
+                axiosSecure.post("/api/users", userInfo)
                 Swal.fire("Login Successful", `Welcome back, ${user.displayName || 'User'}!`, "success");
                 navigate(location.state?.from || "/");
             })
