@@ -12,6 +12,7 @@ import ManageUsers from '../Pages/Dasbord/Admin/ManageUsers/ManageUsers';
 import AddTags from '../Pages/Dasbord/Admin/AddTags/AddTags';
 import Announcement from '../Pages/Dasbord/Admin/Announcement/Announcement';
 import Comments from '../Pages/Dasbord/User/Comments/Comments';
+import PaymentPage from '../Pages/Membership/PaymentPage/PaymentPage';
 
 
 const router = createBrowserRouter([
@@ -19,16 +20,23 @@ const router = createBrowserRouter([
         path: "/",
         Component: RootLayout,
         children: [
-            { index: true, Component: Home },
+            {
+                index: true,
+                Component: Home
+            },
+            {
+                path: "membership",
+                element : <PaymentPage></PaymentPage>
+            },
         ]
     },
     {
         path: "/dashboard",
         element: <DashbordLayout></DashbordLayout>,
         children: [
-            { 
-                index: true, 
-                Component : UserHome
+            {
+                index: true,
+                Component: UserHome
             },
             {
                 path: 'add-post',
@@ -55,7 +63,7 @@ const router = createBrowserRouter([
                 Component: Comments
             },
         ]
-        
+
     },
     {
         path: "login",
