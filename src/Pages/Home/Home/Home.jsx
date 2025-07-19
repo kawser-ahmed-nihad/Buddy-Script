@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Hero from '../Hero/Hero';
 import AllTags from '../AllTags/AllTags';
 import PostList from '../PostList/PostList';
 
 const Home = () => {
-  const [selectedTag, setSelectedTag] = useState(null);
+    const [selectedTag, setSelectedTag] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
-  return (
-    <div className="">
-      <Hero />
-      <AllTags selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
-      <PostList selectedTag={selectedTag} />
-    </div>
-  );
+    useEffect(() => {
+        if (selectedTag) {
+            setSearchTerm('');
+        }
+    }, [selectedTag]);
+
+    return (
+        <div>
+            <Hero setSearchTerm={setSearchTerm} />
+            <AllTags selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
+            <PostList selectedTag={selectedTag} searchTerm={searchTerm} />
+        </div>
+    );
 };
 
 export default Home;

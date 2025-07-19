@@ -14,6 +14,7 @@ import Announcement from '../Pages/Dasbord/Admin/Announcement/Announcement';
 import Comments from '../Pages/Dasbord/User/Comments/Comments';
 import PaymentPage from '../Pages/Membership/PaymentPage/PaymentPage';
 import PrivateRoute from '../context/PrivateRoute/PrivateRoute';
+import PostDetails from '../Pages/Home/PostDetails/PostDetails';
 
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: "membership",
                 element :<PrivateRoute> <PaymentPage></PaymentPage></PrivateRoute>
+            },
+            {
+                path: "/posts/:id",
+                element :<PrivateRoute> <PostDetails></PostDetails></PrivateRoute>
             },
         ]
     },
