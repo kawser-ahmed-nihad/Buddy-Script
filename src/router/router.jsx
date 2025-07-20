@@ -11,10 +11,12 @@ import MyPosts from '../Pages/Dasbord/User/MyPosts/MyPosts';
 import ManageUsers from '../Pages/Dasbord/Admin/ManageUsers/ManageUsers';
 import AddTags from '../Pages/Dasbord/Admin/AddTags/AddTags';
 import Announcement from '../Pages/Dasbord/Admin/Announcement/Announcement';
-import Comments from '../Pages/Dasbord/User/Comments/Comments';
+import Comments from '../Pages/Dasbord/User/Comments/CommentsDetails';
 import PaymentPage from '../Pages/Membership/PaymentPage/PaymentPage';
 import PrivateRoute from '../context/PrivateRoute/PrivateRoute';
 import PostDetails from '../Pages/Home/PostDetails/PostDetails';
+import MyProfile from '../Pages/Dasbord/User/MyProfile/MyProfile';
+import CommentsDetails from '../Pages/Dasbord/User/Comments/CommentsDetails';
 
 
 const router = createBrowserRouter([
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
             {
                 path: 'add-tags',
                 Component: AddTags
+            },
+            {
+                path: 'my-profile',
+                Component: MyProfile
+            },
+            {
+                path: 'comments/:postId',
+                element : <CommentsDetails></CommentsDetails>
             },
             {
                 path: 'user',
