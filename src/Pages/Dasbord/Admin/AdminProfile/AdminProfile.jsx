@@ -55,8 +55,8 @@ const AdminProfile = () => {
                     className="w-24 h-24 rounded-full object-cover border-4 border-indigo-500"
                 />
                 <div>
-                    <h1 className="text-4xl font-extrabold text-gray-900">{admin.name || 'Admin'}</h1>
-                    <p className="text-gray-600 text-lg mt-1">{admin.email || 'admin@example.com'}</p>
+                    <h1 className="text-4xl font-extrabold text-gray-900">{admin.name}</h1>
+                    <p className="text-gray-600 text-lg mt-1">{admin.email}</p>
                     <span className="inline-block mt-3 bg-yellow-400 text-yellow-900 font-semibold px-4 py-1 rounded-full shadow-sm">
                         Admin
                     </span>

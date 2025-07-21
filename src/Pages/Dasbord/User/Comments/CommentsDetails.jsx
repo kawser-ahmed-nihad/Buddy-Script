@@ -29,9 +29,6 @@ const CommentsDetails = () => {
         }
     });
 
-
-
-
     const reportMutation = useMutation({
         mutationFn: async ({ commentId, feedback, commentText, commenterEmail }) => {
             return axiosSecure.post('/api/reports', {
@@ -62,13 +59,17 @@ const CommentsDetails = () => {
             feedback: selectedFeedback[comment._id],
             commentText: comment.comment,
             commenterEmail: comment.userEmail
-
         });
         setReportedComments({ ...reportedComments, [comment._id]: true });
     };
 
+   
+    if (isLoading) return <p className="text-center text-gray-500">Loading comments...</p>;
 
-    if (isLoading) return <p className="text-center">Loading comments...</p>;
+ 
+    if (comments.length === 0) {
+        return <p className="text-center text-gray-500">No comments found for this post.</p>;
+    }
 
     return (
         <div className="max-w-6xl mx-auto py-8 px-4">
@@ -130,11 +131,11 @@ const CommentsDetails = () => {
                                 </tr>
                             );
                         })}
-
                     </tbody>
                 </table>
             </div>
 
+            {/* Modal for full comment */}
             <Modal
                 isOpen={!!modalComment}
                 onRequestClose={() => setModalComment(null)}

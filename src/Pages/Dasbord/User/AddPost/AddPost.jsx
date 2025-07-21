@@ -67,8 +67,8 @@ const AddPost = ({ userPosts = [] }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg mt-10">
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white">
+    <div className="max-w-2xl mx-auto p-6 bg-white  rounded-xl shadow-lg mt-10">
+      <h2 className="text-2xl font-bold text-center mb-6  ">
         Add a New Post
       </h2>
 
@@ -120,7 +120,7 @@ const AddPost = ({ userPosts = [] }) => {
             type="text"
             {...register('title', { required: true })}
             placeholder="Post Title"
-            className="w-full px-4 py-2 rounded border dark:bg-gray-800 dark:text-white"
+            className="w-full px-4 py-2 rounded border "
           />
           {errors.title && <p className="text-red-500">Title is required</p>}
 
@@ -128,7 +128,7 @@ const AddPost = ({ userPosts = [] }) => {
           <textarea
             {...register('description', { required: true })}
             placeholder="Post Description"
-            className="w-full px-4 py-2 rounded border dark:bg-gray-800 dark:text-white"
+            className="w-full px-4 py-2 rounded border "
             rows="4"
           />
           {errors.description && <p className="text-red-500">Description is required</p>}

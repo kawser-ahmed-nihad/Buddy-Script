@@ -28,7 +28,7 @@ const PostList = ({ selectedTag, searchTerm }) => {
     keepPreviousData: true,
   });
 
-  if (isLoading) return <p>Loading posts...</p>;
+  if (isLoading) return <p className='px-10'>Loading posts...</p>;
 
   const posts = data.posts || [];
   const totalPages = data.totalPages || 1;

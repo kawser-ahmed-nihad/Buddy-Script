@@ -11,7 +11,7 @@ const fetchUser = async (axiosSecure, email) => {
 };
 
 const fetchPosts = async (axiosSecure, authorEmail, limit = 3) => {
-  const res = await axiosSecure.get(`/api/posts?authorEmail=${encodeURIComponent(authorEmail)}&limit=${limit}`);
+  const res = await axiosSecure.get(`/api/logged/posts?authorEmail=${encodeURIComponent(authorEmail)}&limit=${limit}`);
   return res.data.posts;
 };
 

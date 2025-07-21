@@ -15,21 +15,21 @@ const AllTags = ({ selectedTag, setSelectedTag }) => {
         queryFn: fetchTags,
     });
 
-    
-    if (isLoading) return <p>Loading tags...</p>;
+
+    if (isLoading) return <p className='px-10'>Loading tags...</p>;
 
     return (
         <div className="flex flex-wrap max-w-7xl mx-auto gap-3 mt-4">
-            {tags.map((tag ) => (
+            {tags.map((tag, index) => (
                 <button
-                    key={tag._id}
+                    key={tag._id || tag.tagName || index}
                     onClick={() =>
                         setSelectedTag((prev) =>
                             prev === tag.tagName ? null : tag.tagName
                         )
                     }
                     className={`px-4 py-2 rounded-full border text-sm font-medium transition
-                    ${selectedTag === tag.tagName
+        ${selectedTag === tag.tagName
                             ? 'bg-blue-600 text-white'
                             : 'bg-gray-100 text-gray-700 hover:bg-blue-100'}`}
                 >
