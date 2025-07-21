@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 
 const axiosSecure = axios.create({
-  baseURL: `http://localhost:5000`,
+  baseURL: `https://echoverse-server-1.onrender.com`,
 });
 
 const useAxiosSecure = () => {
