@@ -1,12 +1,29 @@
-# React + Vite
+# 🌐 EchoVerse - Developer Forum Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**EchoVerse** is a full-featured developer forum built with the MERN Stack. It allows users to create and explore posts, use tags, vote on content, comment, and more. Admins can manage users, announcements, and moderate reported content.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🔐 JWT-based User Authentication
+- 📝 Create, update, and delete your own posts
+- 🏷️ Tag-based filtering and search
+- 📈 Popularity sorting (based on votes)
+- 👍 Upvote/Downvote system
+- 💬 Commenting and Comment Reporting
+- 🥇 User Level Badges (e.g. Gold Badge)
+- 🛡️ Admin Panel for user and content management
+- 📢 Admin Announcements
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠 Tech Stack
+
+| Frontend       | Backend      | Database | Tools & Libraries   |
+|----------------|--------------|----------|----------------------|
+| React + Vite   | Express.js   | MongoDB  | Tailwind CSS         |
+| React Router   | Node.js      | Mongoose | React Hook Form      |
+| React Query    | JWT Auth     |          | SweetAlert2, Axios   |
+
+
