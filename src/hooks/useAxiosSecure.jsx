@@ -1,14 +1,30 @@
 import axios from 'axios';
-import React from 'react';
-
+import { getAuth } from 'firebase/auth';
 
 const axiosSecure = axios.create({
-    baseURL: `http://localhost:5000`
+  baseURL: `http://localhost:5000`,
 });
 
 const useAxiosSecure = () => {
-    
-    return axiosSecure;
+  const auth = getAuth();
+
+  axiosSecure.interceptors.request.use(
+    async (config) => {
+      const user = auth.currentUser;
+
+      if (user) {
+        const token = await user.getIdToken();
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  return axiosSecure;
 };
 
 export default useAxiosSecure;

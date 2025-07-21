@@ -6,7 +6,8 @@ import useAuth from '../../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import SocialLogin from '../SocialLogin/SocialLogin';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
+
+import useAxios from '../../../hooks/useAxios';
 
 const Login = () => {
     const [loginError, setLoginError] = useState('');
@@ -15,7 +16,7 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    const axiosSecure = useAxiosSecure();
+    const axiosInstance = useAxios();
 
     const onSubmit = (data) => {
         setLoginError("");
@@ -37,7 +38,7 @@ const Login = () => {
                 };
 
                 // Send to backend
-                axiosSecure.post("/api/users", userInfo)
+                axiosInstance.post("/api/users", userInfo)
                 Swal.fire("Login Successful", `Welcome back, ${user.displayName || 'User'}!`, "success");
                 navigate(location.state?.from || "/");
             })

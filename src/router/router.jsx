@@ -17,6 +17,10 @@ import PrivateRoute from '../context/PrivateRoute/PrivateRoute';
 import PostDetails from '../Pages/Home/PostDetails/PostDetails';
 import MyProfile from '../Pages/Dasbord/User/MyProfile/MyProfile';
 import CommentsDetails from '../Pages/Dasbord/User/Comments/CommentsDetails';
+import AdminReportsPage from '../Pages/Dasbord/Admin/AdminReportsPage/AdminReportsPage';
+import AdminProfile from '../Pages/Dasbord/Admin/AdminProfile/AdminProfile';
+import AdminRoute from '../context/PrivateRoute/AdminRoute';
+
 
 
 const router = createBrowserRouter([
@@ -30,11 +34,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "membership",
-                element :<PrivateRoute> <PaymentPage></PaymentPage></PrivateRoute>
+                element: <PrivateRoute> <PaymentPage></PaymentPage></PrivateRoute>
             },
             {
                 path: "/posts/:id",
-                element :<PrivateRoute> <PostDetails></PostDetails></PrivateRoute>
+                element: <PrivateRoute> <PostDetails></PostDetails></PrivateRoute>
             },
         ]
     },
@@ -52,19 +56,27 @@ const router = createBrowserRouter([
             },
             {
                 path: 'add-tags',
-                Component: AddTags
+                element: <AdminRoute><AddTags></AddTags></AdminRoute>
             },
             {
                 path: 'my-profile',
                 Component: MyProfile
             },
             {
+                path: 'admin-profile',
+                element: <AdminRoute><AdminProfile></AdminProfile></AdminRoute>
+            },
+            {
+                path: 'reported-activities',
+                element: <AdminRoute><AdminReportsPage></AdminReportsPage></AdminRoute>
+            },
+            {
                 path: 'comments/:postId',
-                element : <CommentsDetails></CommentsDetails>
+                element: <CommentsDetails></CommentsDetails>
             },
             {
                 path: 'user',
-                Component: ManageUsers
+                element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
             },
             {
                 path: 'my-posts',
@@ -72,7 +84,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'announcement',
-                Component: Announcement
+                element : <AdminRoute><Announcement></Announcement></AdminRoute>
             },
             {
                 path: 'comments',

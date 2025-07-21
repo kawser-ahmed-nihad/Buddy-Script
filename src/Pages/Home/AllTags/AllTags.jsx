@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { data } from 'react-router';
+import useAxios from '../../../hooks/useAxios';
 
 const AllTags = ({ selectedTag, setSelectedTag }) => {
-    const axiosSecure = useAxiosSecure();
+    const axiosSecure = useAxios();
 
     const fetchTags = async () => {
         const res = await axiosSecure.get('/api/tags');
@@ -14,11 +15,12 @@ const AllTags = ({ selectedTag, setSelectedTag }) => {
         queryFn: fetchTags,
     });
 
+    
     if (isLoading) return <p>Loading tags...</p>;
 
     return (
         <div className="flex flex-wrap max-w-7xl mx-auto gap-3 mt-4">
-            {tags.map((tag) => (
+            {tags.map((tag ) => (
                 <button
                     key={tag._id}
                     onClick={() =>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router';
 import { FaThumbsUp, FaThumbsDown, FaCommentDots } from 'react-icons/fa';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useAxios from '../../../hooks/useAxios';
 
 const fetchPosts = async (axiosSecure, selectedTag, popular, page, searchTerm) => {
   let url = `/api/posts?page=${page}&limit=5`;
@@ -14,7 +14,7 @@ const fetchPosts = async (axiosSecure, selectedTag, popular, page, searchTerm) =
 };
 
 const PostList = ({ selectedTag, searchTerm }) => {
-  const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxios();
   const [page, setPage] = useState(1);
   const [popular, setPopular] = useState(false);
 
@@ -60,7 +60,7 @@ const PostList = ({ selectedTag, searchTerm }) => {
             >
               <div className="flex items-center gap-4 mb-3">
                 <img
-                  src={post.authorImg || 'https://via.placeholder.com/50'}
+                  src={post.authorImg }
                   alt="Author"
                   className="w-12 h-12 rounded-full object-cover"
                 />

@@ -8,7 +8,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
-Modal.setAppElement('#root'); 
+Modal.setAppElement('#root');
 
 const PostDetails = () => {
   const { id } = useParams();
@@ -31,6 +31,7 @@ const PostDetails = () => {
       return res.data;
     },
   });
+
 
   // Fetch comments data
   const { data: comments = [], isLoading: commentsLoading } = useQuery({
@@ -162,9 +163,8 @@ const PostDetails = () => {
         <button
           onClick={() => handleVote('upvote')}
           disabled={voteMutation.isLoading}
-          className={`flex items-center gap-2 px-4 py-2 rounded ${
-            voteStatus === 'upvote' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-800'
-          }`}
+          className={`flex items-center gap-2 px-4 py-2 rounded ${voteStatus === 'upvote' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-800'
+            }`}
         >
           <FaThumbsUp />
           <span>{post.upVote}</span>
@@ -173,9 +173,8 @@ const PostDetails = () => {
         <button
           onClick={() => handleVote('downvote')}
           disabled={voteMutation.isLoading}
-          className={`flex items-center gap-2 px-4 py-2 rounded ${
-            voteStatus === 'downvote' ? 'bg-red-500 text-white' : 'bg-gray-200 dark:bg-gray-800'
-          }`}
+          className={`flex items-center gap-2 px-4 py-2 rounded ${voteStatus === 'downvote' ? 'bg-red-500 text-white' : 'bg-gray-200 dark:bg-gray-800'
+            }`}
         >
           <FaThumbsDown />
           <span>{post.downVote}</span>
@@ -186,11 +185,14 @@ const PostDetails = () => {
           <span>{comments.length}</span>
         </div>
 
-        <FacebookShareButton url={shareUrl} quote={post.title}>
-          <button className="flex items-center gap-2 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">
+        <FacebookShareButton
+          url={shareUrl}
+          quote={post.title}
+        >
+          <div className="flex items-center gap-2 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 cursor-pointer">
             <FaShareAlt />
             <span>Share</span>
-          </button>
+          </div>
         </FacebookShareButton>
       </div>
 

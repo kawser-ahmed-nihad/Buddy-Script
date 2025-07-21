@@ -2,12 +2,13 @@ import React from 'react';
 import Swal from 'sweetalert2';
 import useAuth from '../../../hooks/useAuth';
 import { Link, useLocation, useNavigate } from 'react-router';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useAxios from '../../../hooks/useAxios';
+
 const SocialLogin = () => {
     const { socialLogin } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const axiosSecure = useAxiosSecure();
+    const axiosInstance = useAxios();
     const googleLogin = () => {
         socialLogin()
             .then(res => {
@@ -20,7 +21,7 @@ const SocialLogin = () => {
                 };
 
                 // Send to backend
-                axiosSecure.post("/api/users", userInfo)
+                axiosInstance.post("/api/users", userInfo)
 
                 Swal.fire({
                     icon: 'success',
