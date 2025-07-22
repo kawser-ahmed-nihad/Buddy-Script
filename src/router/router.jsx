@@ -20,6 +20,7 @@ import CommentsDetails from '../Pages/Dasbord/User/Comments/CommentsDetails';
 import AdminReportsPage from '../Pages/Dasbord/Admin/AdminReportsPage/AdminReportsPage';
 import AdminProfile from '../Pages/Dasbord/Admin/AdminProfile/AdminProfile';
 import AdminRoute from '../context/PrivateRoute/AdminRoute';
+import NotFound from '../Pages/Shared/NotFound/NotFound';
 
 
 
@@ -84,7 +85,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'announcement',
-                element : <AdminRoute><Announcement></Announcement></AdminRoute>
+                element: <AdminRoute><Announcement></Announcement></AdminRoute>
             },
             {
                 path: 'comments',
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
     {
         path: "signup",
         Component: Resgister
+    },
+    {
+        path: '*',
+        element: <NotFound />,
     }
 
 ]);
