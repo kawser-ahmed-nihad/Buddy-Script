@@ -20,7 +20,7 @@ import CommentsDetails from '../Pages/Dasbord/User/Comments/CommentsDetails';
 import AdminReportsPage from '../Pages/Dasbord/Admin/AdminReportsPage/AdminReportsPage';
 import AdminProfile from '../Pages/Dasbord/Admin/AdminProfile/AdminProfile';
 import AdminRoute from '../context/PrivateRoute/AdminRoute';
-import NotFound from '../Pages/Shared/NotFound/NotFound';
+import NotFoundPage from '../Pages/Shared/NotFoundPage/NotFoundPage';
 
 
 
@@ -104,7 +104,7 @@ const router = createBrowserRouter([
     },
     {
         path: '*',
-        element: <NotFound />,
+        element: <NotFoundPage />,
     }
 
 ]);
