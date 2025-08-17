@@ -41,7 +41,7 @@ const ManageUsers = () => {
             />
 
             {isLoading ? (
-                <div className="text-center py-8">🔄 Loading...</div>
+                <div className="text-center"> Loading...</div>
             ) : (
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white border rounded">

@@ -49,7 +49,7 @@ const AdminReportsPage = () => {
     });
   };
 
-  if (isLoading) return <p className="text-center">Loading Reports...</p>;
+  if (isLoading) return <p className="text-center h-screen">Loading Reports...</p>;
 
   return (
     <div className="max-w-6xl mx-auto py-6">

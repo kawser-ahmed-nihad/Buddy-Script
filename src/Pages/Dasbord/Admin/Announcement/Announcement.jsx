@@ -49,7 +49,7 @@ const Announcement = () => {
     };
 
     return (
-        <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md">
+        <div className="max-w-3xl mx-auto p-6 mt-10 bg-white shadow-md rounded-md">
             <h2 className="text-2xl font-bold mb-6">Make Announcement</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
@@ -118,7 +118,7 @@ const Announcement = () => {
                 <button
                     type="submit"
                     disabled={isSubmitting || mutation.isLoading}
-                    className="btn btn-primary"
+                    className="btn bg-[#cc5429]"
                 >
                     {isSubmitting || mutation.isLoading ? 'Submitting...' : 'Submit Announcement'}
                 </button>
