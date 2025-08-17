@@ -12,7 +12,7 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <div className='urbanist'>
+      <div className='urbanist bg-[#f7f7f7]'>
         <AuthProvider>
           <RouterProvider router={router} />
         </AuthProvider>
