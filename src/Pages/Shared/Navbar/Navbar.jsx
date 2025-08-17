@@ -80,6 +80,7 @@ const Navbar = () => {
           <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
           <li><NavLink to="/membership" className={navLinkClass}>Membership</NavLink></li>
           <li><NavLink to="/contact" className={navLinkClass}>Contact</NavLink></li>
+          <li><NavLink to="/about" className={navLinkClass}>About Us</NavLink></li>
           <li>
             <div className="relative cursor-pointer" onClick={refetch}>
               <FiBell className="hover:text-[#cc5429] text-xl" />
