@@ -73,7 +73,7 @@ const PostDetails = () => {
   });
 
   if (postLoading || commentsLoading) return <p className="text-center">Loading...</p>;
-  if (!post) return <p className="text-center">Post not found</p>;
+  if (!post) return <p className="text-center p-10">Post not found</p>;
 
   // Handle vote click with login check
   const handleVote = (type) => {
@@ -139,138 +139,140 @@ const PostDetails = () => {
   const shareUrl = `${window.location.origin}/post/${id}`;
 
   return (
-    <div className="max-w-3xl mx-auto p-6 mt-20 mb-8 bg-white dark:bg-gray-900 rounded-lg shadow-md">
-      {/* Author Info */}
-      <div className="flex items-center gap-4 mb-6">
-        <img
-          src={post.authorImg}
-          alt={post.authorName}
-          className="w-12 h-12 rounded-full"
-        />
-        <div>
-          <h2 className="font-bold">{post.authorName}</h2>
-          <p className="text-gray-500 text-sm">{new Date(post.createdAt).toLocaleString()}</p>
-        </div>
-      </div>
-
-      {/* Post Content */}
-      <h1 className="text-2xl font-bold mb-2">{post.title}</h1>
-      <p className="text-gray-800 dark:text-gray-300 mb-4">{post.description}</p>
-      <p className="text-blue-600 font-semibold mb-4">#{post.tag}</p>
-
-      {/* Action Buttons */}
-      <div className="flex flex-wrap items-center gap-4 mb-6">
-        <button
-          onClick={() => handleVote('upvote')}
-          disabled={voteMutation.isLoading}
-          className={`flex items-center gap-2 px-4 py-2 rounded ${voteStatus === 'upvote' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-800'
-            }`}
-        >
-          <FaThumbsUp />
-          <span>{post.upVote}</span>
-        </button>
-
-        <button
-          onClick={() => handleVote('downvote')}
-          disabled={voteMutation.isLoading}
-          className={`flex items-center gap-2 px-4 py-2 rounded ${voteStatus === 'downvote' ? 'bg-red-500 text-white' : 'bg-gray-200 dark:bg-gray-800'
-            }`}
-        >
-          <FaThumbsDown />
-          <span>{post.downVote}</span>
-        </button>
-
-        <div className="flex items-center gap-2 px-4 py-2 rounded bg-gray-200 dark:bg-gray-800">
-          <FaComment />
-          <span>{comments.length}</span>
-        </div>
-
-        <FacebookShareButton
-          url={shareUrl}
-          quote={post.title}
-        >
-          <div className="flex items-center gap-2 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 cursor-pointer">
-            <FaShareAlt />
-            <span>Share</span>
+    <div className=' bg-white '>
+      <div className="p-8 mt-24 mb-8 max-w-4xl mx-auto rounded-lg shadow-md">
+        {/* Author Info */}
+        <div className="flex items-center gap-4 mb-6">
+          <img
+            src={post.authorImg}
+            alt={post.authorName}
+            className="w-12 h-12 rounded-full"
+          />
+          <div>
+            <h2 className="font-bold">{post.authorName}</h2>
+            <p className="text-gray-500 text-sm">{new Date(post.createdAt).toLocaleString()}</p>
           </div>
-        </FacebookShareButton>
-      </div>
+        </div>
 
-      {/* Comment Input */}
-      <div className="mb-6">
-        <h3 className="text-xl font-semibold mb-3">Comments ({comments.length})</h3>
+        {/* Post Content */}
+        <h1 className="text-2xl font-bold mb-2">{post.title}</h1>
+        <p className="text-gray-800 dark:text-gray-300 mb-4">{post.description}</p>
+        <p className="text-black font-semibold mb-4">#{post.tag}</p>
 
-        {user ? (
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <textarea
-              {...register('comment', { required: 'Comment is required' })}
-              className="w-full border p-2 rounded resize-none mb-2"
-              rows={3}
-              placeholder="Write your comment..."
-            />
-            {errors.comment && <p className="text-red-600 mb-2">{errors.comment.message}</p>}
-            <button
-              type="submit"
-              disabled={commentMutation.isLoading}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            >
-              Comment
-            </button>
-          </form>
-        ) : (
-          <p className="text-red-600">
-            Please{' '}
-            <button onClick={() => navigate('/login')} className="underline">
-              login
-            </button>{' '}
-            to comment, vote, and share.
-          </p>
-        )}
-      </div>
-
-      {/* Comments List */}
-      <ul className="space-y-4">
-        {comments.map((c) => (
-          <li
-            key={c._id}
-            className="border p-3 rounded bg-gray-50 dark:bg-gray-800 flex items-start gap-3"
+        {/* Action Buttons */}
+        <div className="flex flex-wrap items-center gap-4 mb-6">
+          <button
+            onClick={() => handleVote('upvote')}
+            disabled={voteMutation.isLoading}
+            className={`flex items-center gap-2 px-4 py-2 rounded ${voteStatus === 'upvote' ? 'bg-green-500 text-white' : 'bg-gray-200 '
+              }`}
           >
-            <img
-              src={c.userImg || '/default-user.png'}
-              alt={c.userName}
-              className="w-10 h-10 rounded-full object-cover"
-            />
-            <div>
-              <p className="font-semibold">{c.userName}</p>
-              <p
-                className="text-gray-700 dark:text-gray-300 cursor-pointer"
-                onClick={() => handleOpenModal(c.comment)}
-              >
-                {renderCommentText(c.comment)}
-              </p>
-              <p className="text-xs text-gray-400">{new Date(c.createdAt).toLocaleString()}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+            <FaThumbsUp />
+            <span>{post.upVote}</span>
+          </button>
 
-      {/* Modal */}
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Comment Details"
-        className="max-w-xl mx-auto mt-20 bg-white p-6 rounded shadow-lg outline-none"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50"
-      >
-        <h2 className="text-xl font-bold mb-4">Full Comment</h2>
-        <p className="mb-6 whitespace-pre-wrap">{modalCommentText}</p>
-        <button
-          onClick={closeModal}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          <button
+            onClick={() => handleVote('downvote')}
+            disabled={voteMutation.isLoading}
+            className={`flex items-center gap-2 px-4 py-2 rounded ${voteStatus === 'downvote' ? 'bg-red-500 text-white' : 'bg-gray-200 '
+              }`}
+          >
+            <FaThumbsDown />
+            <span>{post.downVote}</span>
+          </button>
+
+          <div className="flex items-center gap-2 px-4 py-2 rounded bg-gray-200">
+            <FaComment />
+            <span>{comments.length}</span>
+          </div>
+
+          <FacebookShareButton
+            url={shareUrl}
+            quote={post.title}
+          >
+            <div className="flex items-center gap-2 px-4 py-2 rounded bg-[#cc5429] text-white hover:bg-[#e35b2c] cursor-pointer">
+              <FaShareAlt />
+              <span>Share</span>
+            </div>
+          </FacebookShareButton>
+        </div>
+
+        {/* Comment Input */}
+        <div className="mb-6">
+          <h3 className="text-xl font-semibold mb-3">Comments ({comments.length})</h3>
+
+          {user ? (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <textarea
+                {...register('comment', { required: 'Comment is required' })}
+                className="w-full border p-2 rounded resize-none font-medium placeholder:text-black mb-2"
+                rows={3}
+                placeholder="Write your comment..."
+              />
+              {errors.comment && <p className="text-red-600 mb-2">{errors.comment.message}</p>}
+              <button
+                type="submit"
+                disabled={commentMutation.isLoading}
+                className="bg-[#cc5429] text-white px-4 py-2 rounded hover:bg-[#e35b2c]"
+              >
+                Comment
+              </button>
+            </form>
+          ) : (
+            <p className="text-red-600">
+              Please{' '}
+              <button onClick={() => navigate('/login')} className="underline">
+                login
+              </button>{' '}
+              to comment, vote, and share.
+            </p>
+          )}
+        </div>
+
+        {/* Comments List */}
+        <ul className="space-y-4">
+          {comments.map((c) => (
+            <li
+              key={c._id}
+              className="border p-3 rounded bg-gray-50 flex items-start gap-3"
+            >
+              <img
+                src={c.userImg || '/default-user.png'}
+                alt={c.userName}
+                className="w-10 h-10 rounded-full object-cover"
+              />
+              <div className='overflow-hidden'>
+                <p className="font-semibold">{c.userName}</p>
+                <p
+                  className="text-gray-700  font-medium  cursor-pointer"
+                  onClick={() => handleOpenModal(c.comment)}
+                >
+                  {renderCommentText(c.comment)}
+                </p>
+                <p className="text-xs text-gray-400">{new Date(c.createdAt).toLocaleString()}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        {/* Modal */}
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          contentLabel="Comment Details"
+          className="max-w-6xl mx-auto mt-20 bg-white p-4 rounded shadow-lg outline-none"
+          overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50"
         >
-          Close
-        </button>
-      </Modal>
+          <h2 className="text-xl font-bold mb-4">Full Comment</h2>
+          <p className="mb-6 text-md break-all">{modalCommentText}</p>
+          <button
+            onClick={closeModal}
+            className="bg-[#cc5429] text-white px-4 py-2 rounded hover:bg-[#e35b2c]"
+          >
+            Close
+          </button>
+        </Modal>
+      </div>
     </div>
   );
 };

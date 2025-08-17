@@ -34,7 +34,7 @@ const PostList = ({ selectedTag, searchTerm }) => {
   const totalPages = data.totalPages || 1;
 
   return (
-    <div className="mt-6 max-w-7xl mx-auto">
+    <div className="mt-6 max-w-7xl mx-auto px-4 md:px-0">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-xl font-semibold">
           {searchTerm
@@ -45,7 +45,7 @@ const PostList = ({ selectedTag, searchTerm }) => {
         </h3>
         <button
           onClick={() => setPopular(!popular)}
-          className="px-4 py-2 border rounded bg-blue-50 text-blue-700 hover:bg-blue-100"
+          className="px-4 py-2 rounded bg-[#cc5429] text-black font-medium hover:bg-[#e35b2c]"
         >
           {popular ? 'Sort by Latest' : 'Sort by Popularity'}
         </button>
@@ -56,7 +56,7 @@ const PostList = ({ selectedTag, searchTerm }) => {
           {posts.map((post) => (
             <li
               key={post._id}
-              className="bg-white shadow-md p-6 rounded-lg border hover:shadow-lg transition"
+              className="bg-white shadow-md p-6 rounded-lg border border-gray-400 hover:shadow-lg transition"
             >
               <div className="flex items-center gap-4 mb-3">
                 <img
@@ -66,19 +66,19 @@ const PostList = ({ selectedTag, searchTerm }) => {
                 />
                 <div>
                   <h4 className="font-semibold">{post.authorName}</h4>
-                  <p className="text-xs text-gray-400">Offline</p>
+                  <p className="text-xs font-light text-gray-400">Offline</p>
                 </div>
-                <span className="text-xs text-gray-400 ml-auto">
+                <span className="text-xs text-gray-500 font-light ml-auto">
                   {new Date(post.createdAt).toDateString()}
                 </span>
               </div>
 
               <div className="mb-3">
                 <div className="flex gap-2 mb-2">
-                  <span className="text-xs bg-gray-100 px-2 py-1 rounded">#{post.tag}</span>
+                  <span className="text-xs font-light bg-gray-100 px-2 py-1 rounded">#{post.tag}</span>
                 </div>
                 <h4 className="text-lg font-bold text-gray-800">{post.title}</h4>
-                <p className="text-gray-700 mt-1">{post.description?.slice(0, 200)}...</p>
+                <p className="text-gray-700 font-light overflow-hidden mt-1">{post.description?.slice(0, 200)}...</p>
               </div>
 
               <div className="flex items-center gap-6 text-sm text-gray-600 mt-4">
@@ -93,7 +93,7 @@ const PostList = ({ selectedTag, searchTerm }) => {
                 </span>
                 <Link
                   to={`/posts/${post._id}`}
-                  className="ml-auto px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  className="ml-auto px-3 py-1 bg-[#cc5429] font-medium text-black rounded hover:bg-[#e35b2c]"
                 >
                   Details
                 </Link>
@@ -109,7 +109,7 @@ const PostList = ({ selectedTag, searchTerm }) => {
         </p>
       )}
 
-      <div className="flex justify-center gap-2 mt-10">
+      <div className="flex justify-center gap-2 mb-5 mt-10">
         {[...Array(totalPages).keys()].map((p) => (
           <button
             key={p + 1}

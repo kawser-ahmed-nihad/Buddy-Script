@@ -6,7 +6,7 @@ const Footer = () => {
         <footer className="footer footer-horizontal footer-center bg-black text-primary-content p-10">
             <aside>
                 <p className="font-bold">
-                    ACME Industries Ltd.
+                    EchoVerse Industries Ltd.
                     <br />
                     Providing reliable tech since 1992
                 </p>

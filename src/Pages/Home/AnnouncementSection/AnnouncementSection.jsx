@@ -22,15 +22,15 @@ const AnnouncementSection = () => {
     return (
         <>
             {
-                announcements && <> <div className=" max-w-7xl mx-auto mt-8 ">
-                    <h2 className="text-white bg-blue-700 px-4 py-2 rounded-t text-lg font-semibold">
+                announcements && <> <div className=" max-w-7xl bg-white rounded-xl shadow-md mx-auto mt-6 ">
+                    <h2 className=" p-4 rounded-t text-lg font-semibold border-b border-black">
                         Latest Announcements
                     </h2>
                     <div className="space-y-3 max-w-sm px-4 py-3">
                         {announcements.map((announcement) => (
                             <div key={announcement._id} className="">
                                 <p className="font-medium text-gray-800">{announcement.title} | <span className='text-sm'> {new Date(announcement.createdAt).toLocaleString()}</span></p>
-                                <p className="text-sm text-gray-500">
+                                <p className="text-sm font-medium text-gray-700">
                                     Description: {announcement.description} 
                                 </p>
                             </div>

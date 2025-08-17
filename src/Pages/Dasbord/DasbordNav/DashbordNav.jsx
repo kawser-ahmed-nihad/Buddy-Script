@@ -32,7 +32,7 @@ const DashbordNav = () => {
   return (
     <>
       <div className="md:hidden flex justify-between items-center px-4 py-3 shadow-sm bg-white">
-        <NavLink to="/" className="text-lg font-bold text-purple-700">EchoVerse</NavLink>
+        <NavLink to="/" className="text-lg font-bold text-[#cc5429]">EchoVerse</NavLink>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="text-2xl text-gray-700"
@@ -54,7 +54,7 @@ const DashbordNav = () => {
           md:translate-x-0 md:relative md:h-screen`}
       >
         <div className="mb-6 py-5 hidden md:block text-center">
-          <NavLink to="/" className="text-lg font-bold text-purple-700">EchoVerse</NavLink>
+          <NavLink to="/" className="text-lg font-bold text-[#cc5429]">EchoVerse</NavLink>
         </div>
 
         <div>
@@ -68,8 +68,8 @@ const DashbordNav = () => {
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-4 py-2 rounded-lg text-sm font-medium text-black
                     ${isActive
-                      ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white'
-                      : 'hover:bg-gray-100 text-gray-700'}`
+                      ? 'text-[#cc5429] underline underline-offset-4'
+                      :  'hover:text-[#cc5429] transition'}`
                   }
                 >
                   <span className="text-lg">{item.icon}</span>

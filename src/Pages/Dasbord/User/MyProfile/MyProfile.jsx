@@ -60,7 +60,7 @@ const MyProfile = () => {
         <img
           src={user.photo || user.image}
           alt={user.name}
-          className="w-28 h-28 rounded-full object-cover border-4 border-indigo-200"
+          className="w-28 h-28 rounded-full object-cover border-4 border-[#cc5429]"
         />
         <div className="flex-1">
           <h2 className="text-2xl font-bold text-gray-800">{user.name}</h2>
@@ -91,7 +91,7 @@ const MyProfile = () => {
                 key={post._id}
                 className="p-6 bg-white rounded-xl shadow hover:shadow-md transition"
               >
-                <h4 className="text-lg font-bold text-indigo-700">{post.title}</h4>
+                <h4 className="text-lg font-bold text-[#cc5429]">{post.title}</h4>
                 <p className="text-sm text-gray-600 mb-2">
                   #{post.tag} • {formatDistanceToNow(new Date(post.createdAt))} ago
                 </p>
