@@ -16,7 +16,7 @@ const AllTags = ({ selectedTag, setSelectedTag }) => {
     });
 
 
-    if (isLoading) return <p className='px-10'>Loading tags...</p>;
+    // if (isLoading) return <p className='px-10'>Loading tags...</p>;
 
     return (
         <div className="flex flex-wrap max-w-7xl mx-auto px-4 md:px-0 gap-3 mt-24">
