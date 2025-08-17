@@ -72,7 +72,9 @@ const PostDetails = () => {
     },
   });
 
-  if (postLoading || commentsLoading) return <p className="text-center">Loading...</p>;
+  if (postLoading || commentsLoading) return  <div className="flex justify-center items-center h-screen">
+      Loading...
+    </div>;
   if (!post) return <p className="text-center p-10">Post not found</p>;
 
   // Handle vote click with login check

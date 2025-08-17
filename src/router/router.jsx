@@ -21,6 +21,7 @@ import AdminReportsPage from '../Pages/Dasbord/Admin/AdminReportsPage/AdminRepor
 import AdminProfile from '../Pages/Dasbord/Admin/AdminProfile/AdminProfile';
 import AdminRoute from '../context/PrivateRoute/AdminRoute';
 import NotFoundPage from '../Pages/Shared/NotFoundPage/NotFoundPage';
+import Contact from '../Pages/Shared/contact/Contact';
 
 
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             {
                 path: "/posts/:id",
                 element: <PrivateRoute> <PostDetails></PostDetails></PrivateRoute>
+            },
+            {
+                path: "contact",
+                element: <Contact></Contact>
             },
         ]
     },

@@ -55,8 +55,8 @@ const Navbar = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-end md:px-16 bg-[#303F9F] items-center py-4">
-        <div className="w-8 h-8 border-4 border-t-[#ff00e2] border-gray-200 rounded-full animate-spin"></div>
+      <div className="flex justify-end md:px-16  items-center py-4">
+        <div className="w-8 h-8 border-4 border-gray-200 rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -79,6 +79,7 @@ const Navbar = () => {
         <ul className="hidden md:flex items-center gap-6 text-sm font-medium">
           <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
           <li><NavLink to="/membership" className={navLinkClass}>Membership</NavLink></li>
+          <li><NavLink to="/contact" className={navLinkClass}>Contact</NavLink></li>
           <li>
             <div className="relative cursor-pointer" onClick={refetch}>
               <FiBell className="hover:text-[#cc5429] text-xl" />
