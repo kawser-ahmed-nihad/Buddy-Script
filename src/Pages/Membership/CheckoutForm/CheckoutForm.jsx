@@ -81,7 +81,7 @@ const CheckoutForm = ({ amount }) => {
                 <button
                     type="submit"
                     disabled={!stripe || loading}
-                    className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 w-full"
+                    className="bg-[#cc5429] text-white px-4 py-2 rounded hover:bg-[#e35b2c] w-full"
                 >
                     {loading ? 'Processing...' : `Pay ${amount}`}
                 </button>
