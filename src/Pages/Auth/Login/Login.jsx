@@ -1,138 +1,175 @@
-import React, { useState } from 'react';
-import { Helmet } from 'react-helmet';
-import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router';
-import useAuth from '../../../hooks/useAuth';
-import Swal from 'sweetalert2';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
-import SocialLogin from '../SocialLogin/SocialLogin';
+import React from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { useNavigate, Link } from "react-router";
 
-import useAxios from '../../../hooks/useAxios';
+import shape1 from "../../../assets/shape1.png";
+import dark_shape from "../../../assets/dark_shape.svg";
+import shape2 from "../../../assets/shape2.svg";
+import dark_shape1 from "../../../assets/dark_shape1.svg";
+import shape3 from "../../../assets/shape3.svg";
+import dark_shape2 from "../../../assets/dark_shape2.svg";
+import login from "../../../assets/login.png";
+import logo from "../../../assets/logo.svg";
+import google from "../../../assets/google.svg";
+import useAxios from "../../../hooks/useAxios";
 
 const Login = () => {
-    const [loginError, setLoginError] = useState('');
-    const { loginUser } = useAuth();
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const [showPassword, setShowPassword] = useState(false);
-    const navigate = useNavigate();
-    const location = useLocation();
-    const axiosInstance = useAxios();
+  const navigate = useNavigate();
 
-    const onSubmit = (data) => {
-        setLoginError("");
+  const axiosInstance = useAxios();
 
-        loginUser(data.email, data.password)
-            .then((res) => {
-                const user = res.user;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError,
+  } = useForm();
 
-                if (!user.emailVerified) {
-                    Swal.fire("Login Failed", "Please verify your email before login.", "warning");
-                    return;
-                }
-                const userInfo = {
-                    name: res.user.displayName || "No Name",
-                    email: res.user.email,
-                    photo: res.user.photoURL || '',
-                    role: "user",        
-                    status: "bronze"     
-                };
+  const onSubmit = async (data) => {
+    try {
+      const res = await axiosInstance.post(
+        "/login",
+        data,
+        { withCredentials: true } // JWT cookie receive
+      );
 
-                // Send to backend
-                axiosInstance.post("/api/users", userInfo)
-                Swal.fire("Login Successful", `Welcome back, ${user.displayName || 'User'}!`, "success");
-                navigate(location.state?.from || "/");
-            })
-            .catch((err) => {
-                // Custom error messages
-                if (err.code === 'auth/user-not-found') {
-                    setLoginError("No account found with this email.");
-                } else if (err.code === 'auth/wrong-password') {
-                    setLoginError("Password is incorrect.");
-                } else if (err.code === 'auth/invalid-email') {
-                    setLoginError("Invalid email address.");
-                } else {
-                    setLoginError("Login failed. Please try again.");
-                }
-            });
-    };
+      toast.success("Login Successful!", { duration: 2500 });
 
-    return (
-        <>
-            <Helmet>
-                <title>EchoVerse || Login</title>
-            </Helmet>
-            <div className=" bg-white flex dark:text-white items-center justify-center min-h-screen">
-                <div className="w-full max-w-md p-8 space-y-6">
-                    <h2 className="text-center text-2xl font-bold text-black">Sign in to your account</h2>
+      // Redirect to dashboard
+      setTimeout(() => {
+        navigate("/dashbord");
+      }, 700);
 
-                    <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
-                        <div className="space-y-4">
+    } catch (error) {
+      const msg = error?.response?.data?.message;
 
-                            {/* Email */}
-                            <div>
-                                <label htmlFor="email" className="block text-sm font-medium  text-black">
-                                    Email address
-                                </label>
-                                <input
-                                    type="email"
-                                    {...register("email", {
-                                        required: "Email is required",
-                                        pattern: {
-                                            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                            message: "Invalid email format",
-                                        },
-                                    })}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none"
-                                />
-                                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
-                            </div>
+      if (msg) {
+        toast.error(msg);
+        setError("backendError", { message: msg });
+      }
+    }
+  };
 
-                            {/* Password */}
-                            <div>
-                                <div className="flex justify-between items-center">
-                                    <label htmlFor="password" className="block text-sm font-medium  text-gray-700">
-                                        Password
-                                    </label>
-                                    <Link to="/forgot" className="text-sm text-indigo-500 hover:underline">Forgot password?</Link>
-                                </div>
-                                <div className="relative">
-                                    <input
-                                        type={showPassword ? "text" : "password"}
-                                        {...register("password", { required: "Password is required" })}
-                                        className="mt-1 block w-full px-3 py-2 border text-black border-gray-300 rounded-md shadow-sm focus:outline-none"
-                                    />
-                                    <span
-                                        className="absolute right-3 top-2.5 cursor-pointer text-gray-500"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                    >
-                                        {showPassword ? <FiEyeOff /> : <FiEye />}
-                                    </span>
-                                </div>
-                                {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
-                            </div>
-                        </div>
+  return (
+    <div className="bg-[#f0f2f5] relative pb-10 overflow-hidden">
 
-                        {/* Submit */}
-                        <div>
-                            <button
-                                type="submit"
-                                className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#cc5429]"
-                            >
-                                Login
-                            </button>
-                        </div>
-                        {loginError && <p className="text-red-500 text-sm mt-2 text-center">{loginError}</p>}
-                    </form>
+      {/* Background Shapes */}
+      <div className="absolute top-0 left-0 z-0">
+        <img className="w-36" src={shape1} />
+        <img className="w-36 relative -top-[440px]" src={dark_shape} />
+      </div>
 
-                    <p className="text-center text-sm text-gray-500">
-                        Don’t have an account? <Link to="/signup" className='text-blue-500 hover:text-blue-400'>Sign Up</Link>
-                    </p>
-                    <SocialLogin></SocialLogin>
+      <div className="absolute top-0 -right-32 z-0">
+        <img className="w-9/12" src={shape2} />
+        <img
+          className="w-9/12 opacity-[0.05] relative -top-[400px]"
+          src={dark_shape1}
+        />
+      </div>
+
+      <div className="absolute top-[500px] right-0 z-0">
+        <img className="w-full" src={shape3} />
+        <img
+          className="w-full opacity-[0.05] relative -top-[550px]"
+          src={dark_shape2}
+        />
+      </div>
+
+      {/* Main Section */}
+      <div className="py-28 relative z-10">
+        <div className="flex justify-center items-center max-w-5xl mx-auto">
+
+          {/* Left Image */}
+          <div>
+            <img className="w-11/12" src={login} />
+          </div>
+
+          {/* Login Form */}
+          <div className="ml-4">
+            <div className="w-full bg-white flex flex-col items-center justify-center rounded-xl">
+
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="md:w-96 w-80 space-y-8 p-12 flex flex-col items-center justify-center"
+              >
+                <img className="object-cover" src={logo} />
+                <h3 className="text-xl text-[#2D3748] mt-3">Welcome Back</h3>
+                <h1 className="text-[#212529] text-2xl font-medium">Login</h1>
+
+                <button
+                  type="button"
+                  className="w-full mt-6 gap-2 border border-[#f0f2f5] flex items-center justify-center h-12 rounded-md font-medium"
+                >
+                  <img src={google} />
+                  Login with Google
+                </button>
+
+                <div className="divider mb-10">OR</div>
+
+                {/* BACKEND ERROR */}
+                {errors.backendError && (
+                  <p className="text-red-600 text-sm">
+                    {errors.backendError.message}
+                  </p>
+                )}
+
+                {/* Email */}
+                <div className="mb-6 w-full">
+                  <label className="mb-1 block text-sm font-medium text-gray-700">
+                    Email
+                  </label>
+                  <input
+                    {...register("email", { required: "Email is required" })}
+                    type="email"
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-400"
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm">{errors.email.message}</p>
+                  )}
                 </div>
 
+                {/* Password */}
+                <div className="mb-6 w-full">
+                  <label className="mb-1 block text-sm font-medium text-gray-700">
+                    Password
+                  </label>
+                  <input
+                    {...register("password", { required: "Password is required" })}
+                    type="password"
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-400"
+                  />
+                  {errors.password && (
+                    <p className="text-red-500 text-sm">
+                      {errors.password.message}
+                    </p>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="mt-8 w-full py-3 rounded-md text-white bg-[#1890ff] hover:opacity-90 font-medium"
+                >
+                  {isSubmitting ? "Logging in..." : "Login"}
+                </button>
+
+                <p className="text-gray-500/90 text-[11px] mt-4">
+                  Don’t have an account?{" "}
+                  <Link to="/signup" className="text-[#1890ff] hover:underline">
+                    Create New Account
+                  </Link>
+                </p>
+              </form>
+
             </div>
-        </>
-    );
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Login;
