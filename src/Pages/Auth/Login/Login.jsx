@@ -56,12 +56,12 @@ const Login = () => {
     <div className="bg-[#f0f2f5] relative pb-10 overflow-hidden">
 
       {/* Background Shapes */}
-      <div className="absolute top-0 left-0 z-0">
+      <div className="hidden lg:flex flex-col absolute top-0 left-0 z-0">
         <img className="w-36" src={shape1} />
         <img className="w-36 relative -top-[440px]" src={dark_shape} />
       </div>
 
-      <div className="absolute top-0 -right-32 z-0">
+      <div className="hidden lg:flex flex-col absolute top-0 -right-32 z-0">
         <img className="w-9/12" src={shape2} />
         <img
           className="w-9/12 opacity-[0.05] relative -top-[400px]"
@@ -69,7 +69,7 @@ const Login = () => {
         />
       </div>
 
-      <div className="absolute top-[500px] right-0 z-0">
+      <div className="hidden lg:flex flex-col absolute top-[500px] right-0 z-0">
         <img className="w-full" src={shape3} />
         <img
           className="w-full opacity-[0.05] relative -top-[550px]"
@@ -78,17 +78,17 @@ const Login = () => {
       </div>
 
       {/* Main Section */}
-      <div className="py-28 relative z-10">
-        <div className="flex justify-center items-center max-w-5xl mx-auto">
+      <div className="lg:py-28 relative z-10">
+        <div className="gird grid-cols-1 lg:flex justify-center items-center max-w-5xl mx-auto">
 
           {/* Left Image */}
           <div>
-            <img className="w-11/12" src={login} />
+            <img className=" lg:w-11/12" src={login} />
           </div>
 
           {/* Login Form */}
-          <div className="ml-4">
-            <div className="w-full bg-white flex flex-col items-center justify-center rounded-xl">
+          <div className=" m-4  lg:ml-4">
+            <div className=" w-full bg-white flex flex-col items-center justify-center rounded-xl">
 
               <form
                 onSubmit={handleSubmit(onSubmit)}

@@ -13,7 +13,7 @@ const RootLayout = () => {
                 <div className="grid lg:grid-cols-12 max-w-11/12 mx-auto overflow-hidden">
 
 
-                    <aside className="col-span-3 pb-5 overflow-y-auto">
+                    <aside className=" hidden lg:flex flex-col col-span-3 pb-5 overflow-y-auto">
                         <Sidebar />
                     </aside>
 
@@ -23,7 +23,7 @@ const RootLayout = () => {
                     </main>
 
 
-                    <aside className="col-span-3  overflow-y-auto">
+                    <aside className="hidden lg:flex flex-col col-span-3  overflow-y-auto">
                         <RightPanel />
                     </aside>
 

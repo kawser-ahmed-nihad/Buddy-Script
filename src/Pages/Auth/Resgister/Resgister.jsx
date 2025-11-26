@@ -54,31 +54,31 @@ const Register = () => {
     <div className="bg-[#f0f2f5] relative pb-10 overflow-hidden">
 
       {/* Background shapes */}
-      <div className="absolute top-0 left-0 z-0">
+      <div className=" hidden lg:flex flex-col absolute top-0 left-0 z-0">
         <img className="w-36" src={shape1} />
         <img className="w-36 relative -top-[440px]" src={dark_shape} />
       </div>
 
-      <div className="absolute top-0 -right-32 z-0">
+      <div className=" hidden lg:flex flex-col absolute top-0 -right-32 z-0">
         <img className="w-9/12" src={shape2} />
         <img className="w-9/12 opacity-[0.05] relative -top-[400px]" src={dark_shape1} />
       </div>
 
-      <div className="absolute top-[500px] -right-0 z-0">
+      <div className=" hidden lg:flex flex-col absolute top-[500px] -right-0 z-0">
         <img className="w-12/12" src={shape3} />
         <img className="w-12/12 opacity-[0.05] relative -top-[550px]" src={dark_shape2} />
       </div>
 
       {/* Main */}
-      <div className="py-28 relative z-10">
-        <div className="flex justify-center items-center max-w-5xl mx-auto">
+      <div className=" lg:py-28 relative z-10">
+        <div className=" gird grid-cols-1 lg:flex justify-center items-center max-w-5xl mx-auto">
 
           <div>
             <img src={registration} alt="" />
           </div>
 
           <div>
-            <div className="w-full bg-white flex flex-col items-center justify-center rounded-xl">
+            <div className=" mx-4 lg:w-full lg:mx-0 bg-white flex flex-col items-center justify-center rounded-xl">
 
               <form
                 className="md:w-96 w-80 p-12 flex flex-col items-center justify-center"
@@ -211,7 +211,7 @@ const Register = () => {
 
                 <p className="text-gray-500/90 text-[11px] mt-4">
                   Already have an account?{" "}
-                  <Link to="/login" className="text-[#1890ff] hover:underline">
+                  <Link to="/" className="text-[#1890ff] hover:underline">
                     Login
                   </Link>
                 </p>

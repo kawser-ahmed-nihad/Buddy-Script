@@ -32,9 +32,9 @@ const Navbar = () => {
 
     return (
         <div className="bg-white shadow-sm z-10 fixed top-0 w-full">
-            <div className="max-w-11/12 mx-auto ">
+            <div className=" max-w-11/12 mx-auto ">
 
-                <div className="px-6 py-5  flex items-center justify-between">
+                <div className="px-6 py-5 hidden lg:flex items-center justify-between">
 
                     <div className="flex items-center gap-2">
                         <img
@@ -105,7 +105,9 @@ const Navbar = () => {
                     scale-x-0 origin-left
                     group-hover:scale-x-100
                     transition-transform duration-300
-                "></div>
+                ">
+
+                            </div>
                         </div>
 
                         {
@@ -142,6 +144,51 @@ const Navbar = () => {
 
 
             </div>
+
+            {/* mobile */}
+            <div className=" lg:hidden px-6 py-5 ">
+
+                <div className="flex items-center  justify-between gap-2">
+                    <img
+                        src={logo}
+                        alt="logo"
+                        className="h-7"
+                    />
+                    <div>
+                        <FiSearch className="text-gray-500 text-lg" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div className="lg:hidden fixed bottom-0 border-t border-gray-300 left-0 w-full bg-white shadow-md z-50">
+                <div className="max-w-11/12 mx-auto">
+                    <div className="flex items-center justify-between px-6 py-3">
+
+                        <div className="flex flex-col items-center cursor-pointer">
+                            <HiOutlineHome className="text-3xl text-[#1773EA]" />
+                        </div>
+
+                        <div className="flex flex-col items-center cursor-pointer">
+                            <HiUsers className="text-3xl text-gray-500" />
+                        </div>
+
+                        <div className="flex flex-col items-center cursor-pointer relative">
+                            <IoNotificationsOutline className="text-3xl text-gray-500" />
+                            <span className="absolute -top-2 -right-2 bg-[#1773EA] text-white text-[10px] px-[6px] py-[1px] rounded-full">6</span>
+                        </div>
+
+                        <div className="flex flex-col items-center cursor-pointer relative">
+                            <IoChatbubbleEllipsesOutline className="text-3xl text-gray-500" />
+                            <span className="absolute -top-2 -right-2 bg-[#1773EA] text-white text-[10px] px-[6px] py-[1px] rounded-full">2</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
         </div >
     );
 };
