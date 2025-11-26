@@ -1,6 +1,6 @@
-# 🌐 EchoVerse - Developer Forum Platform
+# 🌐 Buddy Script - Developer Forum Platform
 
-**EchoVerse** is a full-featured developer forum built with the MERN Stack. It allows users to create and explore posts, use tags, vote on content, comment, and more. Admins can manage users, announcements, and moderate reported content.
+**Buddy Script** is a full-featured developer forum built with the MERN Stack. It allows users to create and explore posts, use tags, vote on content, comment, and more. Admins can manage users, announcements, and moderate reported content.
 
 ---
 

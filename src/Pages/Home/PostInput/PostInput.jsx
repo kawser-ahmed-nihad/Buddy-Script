@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../../hooks/useAxios';
 import photo from '../../../assets/people1.png';
+import { Helmet } from 'react-helmet';
 
 const PostInput = () => {
     const [loading, setLoading] = useState(false);
@@ -86,68 +87,75 @@ const PostInput = () => {
     };
 
     return (
-        <div className="p-3 sm:p-4 bg-white rounded shadow-sm mb-4">
-            <form onSubmit={handleSubmit(onSubmit)}>
 
-                {/* Text Input Row */}
-                <div className="flex items-start space-x-3 mb-4 border-b pb-3 border-gray-200">
-                    <img
-                        src={photo}
-                        alt="User"
-                        className="w-10 h-10 rounded-full object-cover"
-                    />
+        <>
+            <Helmet>
+                <title>Buddy Script | Add Posts</title>
+            </Helmet>
 
-                    <textarea
-                        {...register('text')}
-                        rows="3"
-                        className="w-full p-2 bg-transparent rounded resize-none outline-none text-sm sm:text-base"
-                        placeholder="What's on your mind?"
-                    ></textarea>
-                </div>
+            <div className="p-3 sm:p-4 bg-white rounded shadow-sm mb-4">
+                <form onSubmit={handleSubmit(onSubmit)}>
 
-                {/* Preview Image */}
-                {preview && (
-                    <div className="mb-4">
+                    {/* Text Input Row */}
+                    <div className="flex items-start space-x-3 mb-4 border-b pb-3 border-gray-200">
                         <img
-                            src={preview}
-                            alt="Preview"
-                            className="w-full max-h-64 object-cover rounded"
+                            src={photo}
+                            alt="User"
+                            className="w-10 h-10 rounded-full object-cover"
                         />
+
+                        <textarea
+                            {...register('text')}
+                            rows="3"
+                            className="w-full p-2 bg-transparent rounded resize-none outline-none text-sm sm:text-base"
+                            placeholder="What's on your mind?"
+                        ></textarea>
                     </div>
-                )}
 
-                {/* Actions + Post Button */}
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
-
-                    {/* Action Buttons */}
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
-                        <label className="flex items-center gap-1 px-3 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg cursor-pointer">
-                            <Camera className="w-5 h-5 text-gray-500" />
-                            <span>Photo</span>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                className="hidden"
-                                onChange={handleFileChange}
+                    {/* Preview Image */}
+                    {preview && (
+                        <div className="mb-4">
+                            <img
+                                src={preview}
+                                alt="Preview"
+                                className="w-full max-h-64 object-cover rounded"
                             />
-                        </label>
+                        </div>
+                    )}
 
-                        {renderAction('Video', <Video className="w-5 h-5 text-gray-500" />)}
-                        {renderAction('Event', <Calendar className="w-5 h-5 text-gray-500" />)}
-                        {renderAction('Article', <FileText className="w-5 h-5 text-gray-500" />)}
+                    {/* Actions + Post Button */}
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+
+                        {/* Action Buttons */}
+                        <div className="flex flex-wrap gap-2 sm:gap-3">
+                            <label className="flex items-center gap-1 px-3 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg cursor-pointer">
+                                <Camera className="w-5 h-5 text-gray-500" />
+                                <span>Photo</span>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={handleFileChange}
+                                />
+                            </label>
+
+                            {renderAction('Video', <Video className="w-5 h-5 text-gray-500" />)}
+                            {renderAction('Event', <Calendar className="w-5 h-5 text-gray-500" />)}
+                            {renderAction('Article', <FileText className="w-5 h-5 text-gray-500" />)}
+                        </div>
+
+                        {/* Post Button */}
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700"
+                        >
+                            {loading ? 'Posting...' : 'Post'}
+                        </button>
                     </div>
-
-                    {/* Post Button */}
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700"
-                    >
-                        {loading ? 'Posting...' : 'Post'}
-                    </button>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </>
     );
 };
 
