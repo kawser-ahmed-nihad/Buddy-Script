@@ -5,6 +5,7 @@ import Home from '../Pages/Home/Home/Home';
 import Login from '../Pages/Auth/Login/Login';
 import Resgister from '../Pages/Auth/Resgister/Resgister';
 import PrivateRoute from '../context/PrivateRoute/PrivateRoute';
+import NotFoundPage from '../Components/NotFoundPage';
 
 
 
@@ -31,10 +32,10 @@ const router = createBrowserRouter([
     },
 
 
-    // {
-    //     path: '*',
-    //     element: <NotFoundPage />,
-    // }
+    {
+        path: '*',
+        element: <NotFoundPage />,
+    }
 
 ]);
 
